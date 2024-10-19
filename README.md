@@ -1,5 +1,5 @@
 ### EX7 Implementation of Link Analysis using HITS Algorithm
-### DATE: 7-10-2024
+### DATE: 19-10-2024
 ### AIM: 
 To implement Link Analysis using HITS Algorithm in Python.
 ### Description:
@@ -33,7 +33,6 @@ in a network of web pages based on the structure of the links between them.
     <p>    Visualize using bar chart to represent authority and hub scores.
 
 ### Program:
-
 ```
 import numpy as np
 import matplotlib.pyplot as plt
@@ -68,15 +67,32 @@ def hits_algorithm(adjacency_matrix, max_iterations=100, tol=1.0e-6):
 # For simplicity, using a random adjacency matrix
 adj_matrix = np.array([
     [0, 1, 1],
-    [1, 0, 0],
-    [1, 0, 0]
+    [0, 0, 1],
+    [1, 1, 0]
 ])
 
 # Run HITS algorithm
 authority, hub = hits_algorithm(adj_matrix)
 for i in range(len(authority)):
     print(f"Node {i}: Authority Score = {authority[i]:.4f}, Hub Score = {hub[i]:.4f}")
+    
+i=0
+j=1
+for i in range(len(authority)):
+    
+    for j in range(len(authority)):
+        if(authority[i]>=authority[j]):
+            out=authority[i];
+            authority[i]=authority[j]
+            authority[j]=out
+        if(hub[i]>hub[j]):
+            out=hub[i]
+            hub[i]=hub[j]
+            hub[j]=out
 
+print("Ranking based on Hub Scores:")
+for i in range(len(authority)):
+    print("Rank" ,i+1,hub[i])
 # bar chart of authority vs hub scores
 
 nodes = np.arange(len(authority))
@@ -95,7 +111,8 @@ plt.show()
 
 ### Output:
 
-![image](https://github.com/srijithmass/WDM_EXP7/assets/86846530/2b6242d9-3871-4998-a1d1-d5566a95ebf9)
+![image](https://github.com/user-attachments/assets/278bd148-8434-435a-9eaf-f5c6970e1fe2)
+
 
 
 ### Result:
